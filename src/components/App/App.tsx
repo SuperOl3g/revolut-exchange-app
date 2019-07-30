@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  max-width: 450px;
+  max-width: 400px;
   width: 100%;
 `;
 

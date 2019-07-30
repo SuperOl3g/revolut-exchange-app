@@ -1,55 +1,58 @@
 import React, { PureComponent } from 'react';
-import styled from '@emotion/styled';
 import { InputCallback } from '../../types';
+import { noop } from '../../utils';
+import NumberFormat from 'react-number-format';
+import { ClassNames } from '@emotion/core';
 
-const Input = styled.input`
+const generateClassName = (css: (t: string) => string) =>
+  css(`
   background: none;
   border: none;
   color: inherit;
   font-size: inherit;
   text-align: right;
   outline: none;
-`;
+`);
 
 type InputProps = {
   prefix: '+' | '-';
   name?: string;
   value?: number;
   onChange: InputCallback;
-};
-
-const filterValue = (value: string, prefix: string) => {
-  if (value.length === 1 || !prefix.length) {
-    return value;
-  }
-
-  return value.slice(prefix.length);
+  autoFocus?: boolean;
 };
 
 class CurrencyInput extends PureComponent<InputProps> {
   static defaultProps = {
-    onChange: () => {}
+    onChange: noop
   };
 
-  handleChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
-    const { prefix } = this.props;
+  handleChange = ({ value }: { value: string }) => {
+    const { name } = this.props;
 
-    const { value, name } = e.nativeEvent.target as HTMLInputElement;
-
-    this.props.onChange(e, { value: filterValue(value, prefix), name });
+    this.props.onChange(null, { value: Math.abs(+value).toString(), name });
   };
 
   render() {
-    const { prefix, name, value } = this.props;
+    const { prefix, name, value, autoFocus } = this.props;
 
     return (
-      <Input
-        name={name}
-        pattern="[.0-9]*"
-        inputMode="numeric"
-        value={(value ? prefix : '') + (value || '')}
-        onChange={this.handleChange}
-      />
+      <ClassNames>
+        {({ css }) => (
+          <NumberFormat
+            className={generateClassName(css)}
+            decimalScale={2}
+            autoFocus={autoFocus}
+            allowNegative={false}
+            maxLength={20}
+            name={name}
+            thousandSeparator={true}
+            prefix={prefix}
+            value={value}
+            onValueChange={this.handleChange}
+          />
+        )}
+      </ClassNames>
     );
   }
 }

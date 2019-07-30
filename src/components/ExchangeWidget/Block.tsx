@@ -104,6 +104,7 @@ class ExchangeBlock extends PureComponent<BlockProps, BlockState> {
             value={currency}
           />
           <CurrencyInput
+            autoFocus={type === BlockType.From}
             prefix={type === BlockType.From ? '-' : '+'}
             name={type === BlockType.From ? 'from' : 'to'}
             value={inputValue}

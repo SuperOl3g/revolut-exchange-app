@@ -7,9 +7,9 @@ export type Pockets = {
 };
 
 export type InputCallback = (
-  e: React.SyntheticEvent<HTMLElement>,
+  e: React.SyntheticEvent<HTMLElement> | null,
   obj: {
     value: string;
-    name: string;
+    name?: string;
   }
 ) => void;
