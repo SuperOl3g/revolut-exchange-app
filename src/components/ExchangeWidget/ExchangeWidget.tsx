@@ -5,21 +5,35 @@ import ExchangeBlock, { BlockType } from './Block';
 import { InputCallback, Pockets } from '../../types';
 
 const Content = styled.div`
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 24px 32px ${colors.shadow};
 `;
 
 const Button = styled.button(`
-        display: block;
-        border-radius: 40px;
-        height: 40px;
-        width: 200px;
-        font-size: 18px;
-        border: none;
-        text-align: center;
-        margin: 26px auto 0;
-    `);
+    margin: 20px auto 0;
+    display: block;
+    border-radius: 40px;
+    height: 46px;
+    width: 160px;
+    font-size: 18px;
+    border: none;
+    text-align: center;
+    background-color: ${colors.pink1};
+    color: white;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    outline: none;
+    
+    :disabled {
+      opacity: .25;
+      pointer-events: none;     
+    }
+    
+    :hover {
+      background-color: ${colors.pink2}
+    }
+`);
 
 type WidgetProps = {
   pockets: Pockets;
