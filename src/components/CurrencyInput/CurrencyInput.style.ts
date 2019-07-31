@@ -7,4 +7,6 @@ export const generateClassName = (css: Function) =>
     text-align: right;
     outline: none;
     min-width: 50px;
+    padding: 0;
+    margin: 0;
   `;
