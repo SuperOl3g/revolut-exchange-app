@@ -1,20 +1,24 @@
 import React from 'react';
 import ExchangeBlock, { BlockType } from './Block/Block';
 import { TCurrency, IFieldCallback } from '../../types';
-import { Button, Content } from './ExchangeWidget.style';
+import { Content, ErrorString } from './ExchangeWidget.style';
 import { TPockets } from '../../store';
 import formatMoney from '../../utils/formatMoney';
+import ExchnageButton from './SubmitButton/SubmitButton';
 
-export interface IWidgetProps {
+interface IWidgetProps {
   pockets: TPockets;
   rate?: number;
   sourceCurrency: TCurrency;
   targetCurrency: TCurrency;
   sourceAmount?: number;
   targetAmount?: number;
+  valid: boolean;
+  errorMsg?: string;
 
   onCurrencyChange: IFieldCallback;
   onAmountChange?: IFieldCallback;
+  onExchange: () => void;
   updateRates: () => void;
 }
 
@@ -28,7 +32,10 @@ class ExchangeWidget extends React.PureComponent<IWidgetProps> {
       targetAmount,
       rate,
       onCurrencyChange,
-      onAmountChange
+      onAmountChange,
+      onExchange,
+      valid,
+      errorMsg
     } = this.props;
 
     return (
@@ -63,7 +70,10 @@ class ExchangeWidget extends React.PureComponent<IWidgetProps> {
           />
         </Content>
 
-        <Button disabled={!targetAmount}>Exchange</Button>
+        <ExchnageButton disabled={!valid} onClick={onExchange}>
+          Exchange
+        </ExchnageButton>
+        <ErrorString>{errorMsg}</ErrorString>
       </div>
     );
   }

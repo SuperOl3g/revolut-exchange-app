@@ -1,6 +1,6 @@
-import { IAction } from '../../types';
+import { IAction, TCurrency } from '../../types';
 import { TPockets } from '../index';
-// import {ActionType} from "../actions/ActionType";
+import { ActionType } from '../../actions/ActionTypes';
 
 const initState: TPockets = {
   RUB: 1000500.34,
@@ -11,9 +11,20 @@ const initState: TPockets = {
 
 function pockets(state: TPockets = initState, action: IAction) {
   switch (action.type) {
-    // case ActionType.RATES_REQUEST_SUCCESS: {
+    case ActionType.EXCHANGE: {
+      const {
+        sourceCurrency,
+        sourceAmount,
+        targetCurrency,
+        targetAmount
+      } = action.payload;
 
-    // }
+      return {
+        ...state,
+        [sourceCurrency]: state[sourceCurrency as TCurrency] - sourceAmount,
+        [targetCurrency]: state[targetCurrency as TCurrency] + targetAmount
+      };
+    }
 
     default:
       return state;
