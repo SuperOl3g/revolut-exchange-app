@@ -39,7 +39,7 @@ class CurrencyInput extends PureComponent<IInputProps> {
             className={generateClassName(css)}
             decimalScale={2}
             allowNegative={false}
-            maxLength={18}
+            maxLength={14}
             name={name}
             thousandSeparator={true}
             prefix={prefix}

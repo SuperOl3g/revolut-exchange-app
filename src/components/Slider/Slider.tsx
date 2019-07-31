@@ -5,18 +5,24 @@ import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './slick-theme.css';
+import noop from '../../utils/noop';
 
 export const Slide = styled.div`
   outline: none !important;
 `;
 
 interface ISliderProps {
-  onSlide?: (index: number) => void;
+  onSlide: (index: number) => void;
   currentSlide: number;
 }
 
 class Slider extends PureComponent<ISliderProps> {
+  static defaultProps = {
+    onSlide: noop
+  };
+
   private slider?: SlickSlider;
+  private scrollBlock?: Element | null;
 
   componentDidUpdate(prevProps: ISliderProps) {
     const { currentSlide } = this.props;
@@ -31,23 +37,40 @@ class Slider extends PureComponent<ISliderProps> {
     this.slider = el;
   };
 
+  refScrollBlock = (el: Element | null) => {
+    if (el) {
+      this.scrollBlock = el.querySelector('.slick-list');
+    }
+  };
+
+  handleChange = (i: number): void => {
+    if (this.scrollBlock) {
+      // fix the bug with shifted scroll position by reason of focusing on the input
+      this.scrollBlock.scrollLeft = 0;
+    }
+
+    this.props.onSlide(i);
+  };
+
   render() {
-    const { onSlide, currentSlide, children } = this.props;
+    const { currentSlide, children } = this.props;
 
     return (
-      <SlickSlider
-        ref={this.refSlider}
-        dots
-        arrows
-        speed={250}
-        initialSlide={currentSlide}
-        infinite={false}
-        afterChange={onSlide}
-      >
-        {React.Children.map(children, (child: React.ReactNode) => (
-          <Slide>{child}</Slide>
-        ))}
-      </SlickSlider>
+      <div ref={this.refScrollBlock}>
+        <SlickSlider
+          ref={this.refSlider}
+          dots
+          arrows
+          speed={250}
+          initialSlide={currentSlide}
+          infinite={false}
+          afterChange={this.handleChange}
+        >
+          {React.Children.map(children, (child: React.ReactNode) => (
+            <Slide>{child}</Slide>
+          ))}
+        </SlickSlider>
+      </div>
     );
   }
 }
