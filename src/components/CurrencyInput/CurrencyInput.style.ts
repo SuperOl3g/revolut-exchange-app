@@ -9,4 +9,8 @@ export const generateClassName = (css: Function) =>
     min-width: 50px;
     padding: 0;
     margin: 0;
+
+    ::-ms-clear {
+      display: none;
+    }
   `;
