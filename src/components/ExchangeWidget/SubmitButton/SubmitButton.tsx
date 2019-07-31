@@ -31,7 +31,7 @@ class ExchnageButton extends PureComponent<
       this.setState({
         success: false
       });
-    }, 750);
+    }, 800);
 
     this.props.onClick(e);
   };
@@ -41,7 +41,7 @@ class ExchnageButton extends PureComponent<
     const { success } = this.state;
 
     return (
-      <Button disabled={disabled} onClick={this.handleClick}>
+      <Button success={success} disabled={disabled} onClick={this.handleClick}>
         <Text success={success}>{children}</Text>
         <CheckIcon success={success} viewBox="0 0 24 24">
           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
