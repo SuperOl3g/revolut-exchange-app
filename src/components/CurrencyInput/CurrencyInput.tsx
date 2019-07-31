@@ -8,7 +8,7 @@ import noop from '../../utils/noop';
 interface IInputProps {
   prefix: '+' | '-';
   name: string;
-  value?: number;
+  value?: number | null;
   onChange: IFieldCallback;
   getRef: React.Ref<HTMLElement>;
 }
@@ -43,7 +43,7 @@ class CurrencyInput extends PureComponent<IInputProps> {
             name={name}
             thousandSeparator={true}
             prefix={prefix}
-            value={value}
+            value={value || ''}
             onValueChange={this.handleChange}
           />
         )}

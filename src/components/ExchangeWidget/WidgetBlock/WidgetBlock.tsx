@@ -27,7 +27,7 @@ interface IBlockProps {
   type: FieldType;
   currency: TCurrency;
   pockets: TPockets;
-  inputValue?: number;
+  inputValue?: number | null;
   onCurrencyChange: (type: FieldType, value: TCurrency) => void;
   onAmountChange?: IFieldCallback;
   valueFieldName: string;

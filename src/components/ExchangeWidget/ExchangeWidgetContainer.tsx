@@ -40,8 +40,8 @@ interface IWidgetContainerProps {
 }
 
 interface IWidgetContainerState {
-  sourceAmount?: number;
-  targetAmount?: number;
+  sourceAmount?: number | null;
+  targetAmount?: number | null;
   lastUpdatedField?: AmountFieldName;
 }
 
@@ -113,14 +113,19 @@ class ExchangeWidgetContainer extends Component<
       targetCurrency,
       targetAmount || 0
     );
+
+    this.setState({
+      sourceAmount: null,
+      targetAmount: null
+    });
   };
 
   validate = memoize(
     (
       sourceCurrency: TCurrency,
       pockets: TPockets,
-      sourceAmount: number | undefined,
-      targetAmount: number | undefined
+      sourceAmount?: number | null,
+      targetAmount?: number | null
     ): { valid: boolean; errorMsg?: string } => {
       if (!sourceAmount || !targetAmount) {
         return { valid: false };

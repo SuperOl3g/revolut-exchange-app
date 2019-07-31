@@ -11,8 +11,8 @@ interface IWidgetProps {
   rate?: number;
   sourceCurrency: TCurrency;
   targetCurrency: TCurrency;
-  sourceAmount?: number;
-  targetAmount?: number;
+  sourceAmount?: number | null;
+  targetAmount?: number | null;
   valid: boolean;
   errorMsg?: string;
 
