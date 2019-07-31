@@ -95,7 +95,7 @@ class ExchangeWidgetContainer extends Component<
 
     let realRate = fieldName === 'sourceAmount' ? 1 / rate : rate;
     const val = !oppositeVal
-      ? undefined
+      ? null
       : Math.round(oppositeVal * realRate * 100) / 100;
 
     this.setState({
