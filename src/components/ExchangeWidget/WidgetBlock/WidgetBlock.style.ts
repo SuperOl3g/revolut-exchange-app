@@ -47,7 +47,3 @@ export const SecondaryText = styled.div`
   color: white;
   opacity: 0.7;
 `;
-
-export const Slide = styled.div`
-  outline: none !important;
-`;

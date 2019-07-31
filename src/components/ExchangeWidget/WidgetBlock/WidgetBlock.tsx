@@ -6,16 +6,12 @@ import {
   ExchangeBlock,
   Row,
   SecondaryText,
-  Slide,
   Wrapper
 } from './WidgetBlock.style';
 import { TPockets } from '../../../store';
-import Slider from 'react-slick';
+import Slider from '../../Slider/Slider';
 import memoize from 'memoizee';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './slick-theme.css';
 import { DEFAULT_CURRENCY_ORDER } from '../../../constants/common';
 
 export enum FieldType {
@@ -36,7 +32,6 @@ interface IBlockProps {
 
 class WigdetBlock extends PureComponent<IBlockProps> {
   private inputRefs: { [key in TCurrency]?: HTMLElement } = {};
-  private slider?: Slider;
 
   componentDidMount() {
     const { type, currency } = this.props;
@@ -47,22 +42,12 @@ class WigdetBlock extends PureComponent<IBlockProps> {
     }
   }
 
-  componentDidUpdate(prevProps: IBlockProps) {
-    const { currency, pockets } = this.props;
-
-    // slider API is to tricky, there is no other possibility to change slide
-    if (this.props.currency !== prevProps.currency) {
-      this.slider &&
-        this.slider.slickGoTo(DEFAULT_CURRENCY_ORDER.indexOf(currency));
-    }
-  }
-
   handleSlideClick = (event: React.SyntheticEvent<HTMLElement>): void => {
     this.focusInput(event.currentTarget.dataset['currency'] as TCurrency);
   };
 
   handleSlide = (index: number): void => {
-    const { pockets, type } = this.props;
+    const { type } = this.props;
 
     const newCurrency = DEFAULT_CURRENCY_ORDER[index];
 
@@ -84,10 +69,6 @@ class WigdetBlock extends PureComponent<IBlockProps> {
     { primitive: true }
   );
 
-  refSlider = (el: Slider) => {
-    this.slider = el;
-  };
-
   renderSlide = (currency: TCurrency) => {
     const {
       pockets,
@@ -99,34 +80,32 @@ class WigdetBlock extends PureComponent<IBlockProps> {
     } = this.props;
 
     return (
-      <Slide
+      <ExchangeBlock
         key={currency}
         data-currency={currency}
         onClick={this.handleSlideClick}
       >
-        <ExchangeBlock>
-          <Row>
-            <div>{currency}</div>
-            <CurrencyInput
-              getRef={this.setInputRef(currency)}
-              prefix={type === FieldType.Source ? '-' : '+'}
-              name={valueFieldName}
-              value={inputValue}
-              onChange={onAmountChange}
-            />
-          </Row>
-          <Row>
-            <SecondaryText>
-              You have&nbsp;
-              {formatMoney(pockets[currency], currency, {
-                fractions: 'always'
-              })}
-            </SecondaryText>
+        <Row>
+          <div>{currency}</div>
+          <CurrencyInput
+            getRef={this.setInputRef(currency)}
+            prefix={type === FieldType.Source ? '-' : '+'}
+            name={valueFieldName}
+            value={inputValue}
+            onChange={onAmountChange}
+          />
+        </Row>
+        <Row>
+          <SecondaryText>
+            You have&nbsp;
+            {formatMoney(pockets[currency], currency, {
+              fractions: 'always'
+            })}
+          </SecondaryText>
 
-            <SecondaryText>{extraContent}</SecondaryText>
-          </Row>
-        </ExchangeBlock>
-      </Slide>
+          <SecondaryText>{extraContent}</SecondaryText>
+        </Row>
+      </ExchangeBlock>
     );
   };
 
@@ -136,13 +115,8 @@ class WigdetBlock extends PureComponent<IBlockProps> {
     return (
       <Wrapper type={type}>
         <Slider
-          ref={this.refSlider}
-          dots
-          arrows
-          speed={250}
-          initialSlide={DEFAULT_CURRENCY_ORDER.indexOf(currency)}
-          infinite={false}
-          afterChange={this.handleSlide}
+          currentSlide={DEFAULT_CURRENCY_ORDER.indexOf(currency)}
+          onSlide={this.handleSlide}
         >
           {DEFAULT_CURRENCY_ORDER.map(this.renderSlide)}
         </Slider>
