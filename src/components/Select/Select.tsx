@@ -1,26 +1,16 @@
 import React, { PureComponent } from 'react';
-import styled from '@emotion/styled';
-import { InputCallback } from '../../types';
-import { noop } from '../../utils';
+import { IFieldCallback } from '../../types';
+import { StyledSelect } from './Select.style';
+import noop from '../../utils/noop';
 
-const StyledSelect = styled.select`
-  display: block;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  outline: none;
-  font-size: inherit;
-  color: inherit;
-  margin-left: -8px;
-`;
-
-type SelectProps = {
+interface ISelectProps {
+  name?: string;
   value?: string;
-  onChange: InputCallback;
+  onChange: IFieldCallback;
   options: Array<string>;
-};
+}
 
-class Select extends PureComponent<SelectProps> {
+class Select extends PureComponent<ISelectProps> {
   static defaultProps = {
     onChange: noop
   };
@@ -32,10 +22,10 @@ class Select extends PureComponent<SelectProps> {
   };
 
   render() {
-    const { options, value } = this.props;
+    const { options, value, name } = this.props;
 
     return (
-      <StyledSelect onChange={this.handleChange}>
+      <StyledSelect onChange={this.handleChange} name={name}>
         {options.map(key => (
           <option key={key} value={key} selected={key === value}>
             {key}

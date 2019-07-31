@@ -1,4 +1,4 @@
-import { Currency } from '../types';
+import { TCurrency } from '../types';
 
 const symbols = {
   RUB: '₽',
@@ -22,7 +22,7 @@ const optionsMap = {
 
 const formatMoney = (
   val: number,
-  currency: Currency,
+  currency: TCurrency,
   { fractions = 'as-is' }: { fractions?: 'as-is' | 'always' | 'none' } = {}
 ): string =>
   symbols[currency] + val.toLocaleString(undefined, optionsMap[fractions]);

@@ -1,15 +1,21 @@
 import React from 'react';
+import { ActionType } from './actions/ActionTypes';
 
-export type Currency = 'RUB' | 'USD' | 'EUR' | 'GBP';
+export type TCurrency = 'RUB' | 'USD' | 'EUR' | 'GBP';
 
-export type Pockets = {
-  [id in Currency]: number;
-};
+export interface IFieldCallback {
+  (
+    e: React.SyntheticEvent<HTMLElement> | null,
+    obj: {
+      value: string;
+      name: string;
+    }
+  ): void;
+}
 
-export type InputCallback = (
-  e: React.SyntheticEvent<HTMLElement> | null,
-  obj: {
-    value: string;
-    name?: string;
-  }
-) => void;
+export interface IAction {
+  type: ActionType;
+  payload: {
+    [key: string]: any;
+  };
+}

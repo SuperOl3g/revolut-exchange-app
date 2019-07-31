@@ -1,4 +1,4 @@
-import formatMoney from '../formatMoney';
+import formatMoney from './formatMoney';
 
 describe('formatMoney', () => {
   it('works with rubles', () => {

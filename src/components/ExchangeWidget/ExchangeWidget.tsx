@@ -1,87 +1,69 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import colors from '../../constants/colors';
-import ExchangeBlock, { BlockType } from './Block';
-import { InputCallback, Pockets } from '../../types';
+import ExchangeBlock, { BlockType } from './Block/Block';
+import { TCurrency, IFieldCallback } from '../../types';
+import { Button, Content } from './ExchangeWidget.style';
+import { TPockets } from '../../store';
+import formatMoney from '../../utils/formatMoney';
 
-const Content = styled.div`
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 24px 32px ${colors.shadow};
-`;
+export interface IWidgetProps {
+  pockets: TPockets;
+  rate?: number;
+  sourceCurrency: TCurrency;
+  targetCurrency: TCurrency;
+  sourceAmount?: number;
+  targetAmount?: number;
 
-const Button = styled.button(`
-    margin: 20px auto 0;
-    display: block;
-    border-radius: 40px;
-    height: 46px;
-    width: 160px;
-    font-size: 18px;
-    border: none;
-    text-align: center;
-    background-color: ${colors.pink1};
-    color: white;
-    transition: all 0.25s ease;
-    cursor: pointer;
-    outline: none;
-    
-    :disabled {
-      opacity: .25;
-      pointer-events: none;     
-    }
-    
-    :hover {
-      background-color: ${colors.pink2}
-    }
-`);
+  onCurrencyChange: IFieldCallback;
+  onAmountChange?: IFieldCallback;
+  updateRates: () => void;
+}
 
-type WidgetProps = {
-  pockets: Pockets;
-};
-
-type WidgetState = {
-  fromInputVal?: number;
-  toInputVal?: number;
-};
-
-class ExchangeWidget extends React.PureComponent<WidgetProps, WidgetState> {
-  state = {
-    fromInputVal: undefined,
-    toInputVal: undefined
-  };
-
-  handleInputChange: InputCallback = (_, { value, name }) => {
-    const stateKey = name === 'from' ? 'fromInputVal' : 'toInputVal';
-
-    this.setState({
-      [stateKey]: value
-    });
-  };
-
+class ExchangeWidget extends React.PureComponent<IWidgetProps> {
   render() {
-    const { pockets } = this.props;
-    const { fromInputVal, toInputVal } = this.state;
+    const {
+      pockets,
+      sourceCurrency,
+      targetCurrency,
+      sourceAmount,
+      targetAmount,
+      rate,
+      onCurrencyChange,
+      onAmountChange
+    } = this.props;
 
     return (
       <div>
         <Content>
           <ExchangeBlock
-            type={BlockType.From}
+            currencyFieldName={'sourceCurrency'}
+            valueFieldName={'sourceAmount'}
+            type={BlockType.Source}
             pockets={pockets}
-            currency={'RUB'}
-            inputValue={fromInputVal}
-            onInputChange={this.handleInputChange}
+            currency={sourceCurrency}
+            inputValue={sourceAmount}
+            onCurrencyChange={onCurrencyChange}
+            onAmountChange={onAmountChange}
           />
           <ExchangeBlock
-            type={BlockType.To}
+            currencyFieldName={'targetCurrency'}
+            valueFieldName={'targetAmount'}
+            type={BlockType.Target}
             pockets={pockets}
-            currency={'EUR'}
-            inputValue={toInputVal}
-            onInputChange={this.handleInputChange}
+            currency={targetCurrency}
+            inputValue={targetAmount}
+            onCurrencyChange={onCurrencyChange}
+            onAmountChange={onAmountChange}
+            extraContent={
+              !!rate &&
+              `${formatMoney(1, targetCurrency)} = ${formatMoney(
+                1 / rate,
+                sourceCurrency
+              )}`
+            }
           />
         </Content>
 
-        <Button disabled={!toInputVal}>Exchange</Button>
+        <Button disabled={!targetAmount}>Exchange</Button>
       </div>
     );
   }

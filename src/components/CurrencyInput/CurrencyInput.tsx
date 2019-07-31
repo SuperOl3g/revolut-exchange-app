@@ -1,36 +1,31 @@
 import React, { PureComponent } from 'react';
-import { InputCallback } from '../../types';
-import { noop } from '../../utils';
+import { IFieldCallback } from '../../types';
 import NumberFormat from 'react-number-format';
 import { ClassNames } from '@emotion/core';
+import { generateClassName } from './CurrencyInput.style';
+import noop from '../../utils/noop';
 
-const generateClassName = (css: (t: string) => string) =>
-  css(`
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: inherit;
-  text-align: right;
-  outline: none;
-`);
-
-type InputProps = {
+interface IInputProps {
   prefix: '+' | '-';
-  name?: string;
+  name: string;
   value?: number;
-  onChange: InputCallback;
+  onChange: IFieldCallback;
   autoFocus?: boolean;
-};
+}
 
-class CurrencyInput extends PureComponent<InputProps> {
+class CurrencyInput extends PureComponent<IInputProps> {
   static defaultProps = {
     onChange: noop
   };
 
   handleChange = ({ value }: { value: string }) => {
-    const { name } = this.props;
+    const { name, prefix } = this.props;
 
-    this.props.onChange(null, { value: Math.abs(+value).toString(), name });
+    const newVal = prefix === '-' ? value.slice(prefix.length) : value;
+
+    if (+newVal !== this.props.value) {
+      this.props.onChange(null, { value: newVal, name });
+    }
   };
 
   render() {

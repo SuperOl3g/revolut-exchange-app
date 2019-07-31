@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import ExchangeWidget from '../ExchangeWidget/ExchangeWidget';
+import ExchangeWidget from '../ExchangeWidget/ExchangeWidgetContainer';
+import { Provider } from 'react-redux';
+import store from '../../store';
 
 const Container = styled.div`
   height: 100%;
@@ -15,20 +17,15 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const stateMock = {
-  RUB: 1000500.34,
-  USD: 800.7,
-  EUR: 600,
-  GBP: 70.5
-};
-
 const App: React.FC = () => {
   return (
-    <Container>
-      <Content>
-        <ExchangeWidget pockets={stateMock} />
-      </Content>
-    </Container>
+    <Provider store={store}>
+      <Container>
+        <Content>
+          <ExchangeWidget />
+        </Content>
+      </Container>
+    </Provider>
   );
 };
 
