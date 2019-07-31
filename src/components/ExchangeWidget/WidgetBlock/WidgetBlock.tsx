@@ -16,6 +16,7 @@ import memoize from 'memoizee';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './slick-theme.css';
+import { DEFAULT_CURRENCY_ORDER } from '../../../constants/common';
 
 export enum FieldType {
   Source,
@@ -32,10 +33,6 @@ interface IBlockProps {
   valueFieldName: string;
   extraContent?: React.ReactNode;
 }
-
-const getPocketsKeys = (pockets: TPockets): Array<TCurrency> => {
-  return Object.keys(pockets) as Array<TCurrency>;
-};
 
 class WigdetBlock extends PureComponent<IBlockProps> {
   private inputRefs: { [key in TCurrency]?: HTMLElement } = {};
@@ -56,7 +53,7 @@ class WigdetBlock extends PureComponent<IBlockProps> {
     // slider API is to tricky, there is no other possibility to change slide
     if (this.props.currency !== prevProps.currency) {
       this.slider &&
-        this.slider.slickGoTo(getPocketsKeys(pockets).indexOf(currency));
+        this.slider.slickGoTo(DEFAULT_CURRENCY_ORDER.indexOf(currency));
     }
   }
 
@@ -67,7 +64,7 @@ class WigdetBlock extends PureComponent<IBlockProps> {
   handleSlide = (index: number): void => {
     const { pockets, type } = this.props;
 
-    const newCurrency = getPocketsKeys(pockets)[index];
+    const newCurrency = DEFAULT_CURRENCY_ORDER[index];
 
     this.props.onCurrencyChange(type, newCurrency);
 
@@ -134,9 +131,7 @@ class WigdetBlock extends PureComponent<IBlockProps> {
   };
 
   render() {
-    const { pockets, currency, type } = this.props;
-
-    const pocketsKeys = getPocketsKeys(pockets);
+    const { currency, type } = this.props;
 
     return (
       <Wrapper type={type}>
@@ -145,11 +140,11 @@ class WigdetBlock extends PureComponent<IBlockProps> {
           dots
           arrows
           speed={250}
-          initialSlide={pocketsKeys.indexOf(currency)}
+          initialSlide={DEFAULT_CURRENCY_ORDER.indexOf(currency)}
           infinite={false}
           afterChange={this.handleSlide}
         >
-          {pocketsKeys.map(this.renderSlide)}
+          {DEFAULT_CURRENCY_ORDER.map(this.renderSlide)}
         </Slider>
       </Wrapper>
     );
