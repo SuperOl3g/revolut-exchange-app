@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rates reducer should handle RATES_REQUEST_SUCCESS 1`] = `
+Object {
+  "RUB": Object {
+    "EUR": 0.0141689219,
+    "GBP": 0.0129149723,
+    "RUB": 1,
+    "USD": 0.0156382391,
+  },
+}
+`;
+
+exports[`Rates reducer should return the initial state 1`] = `Object {}`;

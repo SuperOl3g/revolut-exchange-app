@@ -2,7 +2,7 @@ import { IAction, TCurrency } from '../../types';
 import { TPockets } from '../index';
 import { ActionType } from '../../actions/ActionTypes';
 
-const initState: TPockets = {
+export const initState: TPockets = {
   RUB: 1000500.34,
   USD: 800.7,
   EUR: 600,

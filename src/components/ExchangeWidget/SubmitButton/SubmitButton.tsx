@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button, CheckIcon, Text } from './SubmitButton.style';
+import noop from '../../../utils/noop';
 
 interface IExchangeButtonProps {
   disabled?: boolean;
@@ -14,6 +15,10 @@ class ExchnageButton extends PureComponent<
   IExchangeButtonProps,
   IExchangeButtonState
 > {
+  static defaultProps = {
+    onClick: noop
+  };
+
   state = {
     success: false
   };

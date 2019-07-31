@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import colors from '../../../constants/colors';
-import { FieldType } from './WidgetBlock';
+import { FieldType } from '../../../types';
 
 export const Row = styled.div`
   display: flex;

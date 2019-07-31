@@ -1,7 +1,6 @@
 import { ActionType } from './ActionTypes';
-import { TCurrency } from '../types';
+import { FieldType, TCurrency } from '../types';
 import { Dispatch, IStoreState } from '../store';
-import { FieldType } from '../components/ExchangeWidget/WidgetBlock/WidgetBlock';
 import updateRates from './updateRates';
 import { DEFAULT_CURRENCY_ORDER } from '../constants/common';
 
@@ -30,6 +29,7 @@ export default function changeCurrency(type: FieldType, currency: TCurrency) {
         type === FieldType.Source ? 'targetCurrency' : 'sourceCurrency'
       ];
 
+    // if currencies are same we need to change one of them
     if (oppositeCurrency === currency) {
       dispatch({
         type:

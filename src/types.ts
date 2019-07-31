@@ -8,7 +8,7 @@ export interface IFieldCallback {
     e: React.SyntheticEvent<HTMLElement> | null,
     obj: {
       value: string;
-      name: string;
+      name?: string;
     }
   ): void;
 }
@@ -18,4 +18,9 @@ export interface IAction {
   payload: {
     [key: string]: any;
   };
+}
+
+export enum FieldType {
+  Source,
+  Target
 }

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TCurrency, IFieldCallback } from '../../../types';
+import { TCurrency, IFieldCallback, FieldType } from '../../../types';
 import formatMoney from '../../../utils/formatMoney';
 import CurrencyInput from '../../CurrencyInput/CurrencyInput';
 import {
@@ -13,11 +13,7 @@ import Slider from '../../Slider/Slider';
 import memoize from 'memoizee';
 
 import { DEFAULT_CURRENCY_ORDER } from '../../../constants/common';
-
-export enum FieldType {
-  Source,
-  Target
-}
+import noop from '../../../utils/noop';
 
 interface IBlockProps {
   type: FieldType;
@@ -31,6 +27,10 @@ interface IBlockProps {
 }
 
 class WigdetBlock extends PureComponent<IBlockProps> {
+  static defaultProps = {
+    onCurrencyChange: noop
+  };
+
   private inputRefs: { [key in TCurrency]?: HTMLElement } = {};
 
   componentDidMount() {

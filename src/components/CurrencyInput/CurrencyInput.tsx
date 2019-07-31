@@ -6,8 +6,8 @@ import { generateClassName } from './CurrencyInput.style';
 import noop from '../../utils/noop';
 
 interface IInputProps {
-  prefix: '+' | '-';
-  name: string;
+  prefix?: '+' | '-';
+  name?: string;
   value?: number | null;
   onChange: IFieldCallback;
   getRef: React.Ref<HTMLElement>;
@@ -15,7 +15,8 @@ interface IInputProps {
 
 class CurrencyInput extends PureComponent<IInputProps> {
   static defaultProps = {
-    onChange: noop
+    onChange: noop,
+    getRef: noop
   };
 
   handleChange = ({ value }: { value: string }) => {

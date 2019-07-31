@@ -1,0 +1,72 @@
+import fetchMock from 'fetch-mock';
+import { ActionType } from '../ActionTypes';
+import { EXCHANGE_API } from '../../constants/common';
+import { mockStore } from '../../testUtils/';
+import updateRates from '../updateRates';
+
+describe('updateRates', () => {
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  it('should dispatch all actions with correct data', async () => {
+    const initialState: any = {
+      exchange: {
+        sourceCurrency: 'RUB'
+      }
+    };
+    const rates = {
+      RUB: 1,
+      EUR: 0.0141689219,
+      USD: 0.0156382391,
+      GBP: 0.0129149723
+    };
+
+    const store = mockStore(initialState);
+
+    fetchMock.getOnce(`${EXCHANGE_API}/latest?base=RUB`, {
+      body: { rates }
+    });
+
+    await store.dispatch(updateRates());
+
+    const actions = store.getActions();
+
+    expect(actions[0].type).toBe(ActionType.RATES_REQUEST);
+    expect(actions[0].payload).toStrictEqual({ baseCurrency: 'RUB' });
+
+    expect(actions[1].type).toBe(ActionType.RATES_REQUEST_SUCCESS);
+    expect(actions[1].payload).toStrictEqual({ rates, baseCurrency: 'RUB' });
+  });
+
+  it('should pick only necessary props', async () => {
+    const initialState: any = {
+      exchange: {
+        sourceCurrency: 'RUB'
+      }
+    };
+    const rates = {
+      RUB: 1,
+      EUR: 0.0141689219,
+      USD: 0.0156382391,
+      GBP: 0.0129149723,
+      CAD: 100500
+    };
+
+    const store = mockStore(initialState);
+
+    fetchMock.getOnce(`${EXCHANGE_API}/latest?base=RUB`, {
+      body: { rates }
+    });
+
+    await store.dispatch(updateRates());
+
+    const actions = store.getActions();
+
+    expect(actions[1].type).toBe(ActionType.RATES_REQUEST_SUCCESS);
+    expect(actions[1].payload).not.toStrictEqual({
+      rates,
+      baseCurrency: 'RUB'
+    });
+  });
+});

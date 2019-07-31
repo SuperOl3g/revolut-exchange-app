@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import ExchangeWidget from './ExchangeWidget';
 import { IStoreState, TPockets } from '../../store';
 import updateRates from '../../actions/updateRates';
-import { IAction, IFieldCallback, TCurrency } from '../../types';
+import { FieldType, IAction, IFieldCallback, TCurrency } from '../../types';
 import { ThunkDispatch } from 'redux-thunk';
 import changeCurrency from '../../actions/changeCurrency';
 import path from '../../utils/path';
 import memoize from 'memoizee';
 import exchange from '../../actions/exchange';
-import { FieldType } from './WidgetBlock/WidgetBlock';
 
 const UPDATE_INTERVAL = 10000;
 
@@ -74,6 +73,10 @@ class ExchangeWidgetContainer extends Component<
   }
 
   handleAmountChange: IFieldCallback = (e, { value, name }) => {
+    if (!name) {
+      return;
+    }
+
     this.setState(
       {
         [name]: value.length ? +value : undefined,

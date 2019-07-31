@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pockets reducer should handle EXCHANGE 1`] = `
+Object {
+  "EUR": 850,
+  "GBP": 70.5,
+  "RUB": 1000500.34,
+  "USD": 600.7,
+}
+`;
+
+exports[`Pockets reducer should return the initial state 1`] = `
+Object {
+  "EUR": 600,
+  "GBP": 70.5,
+  "RUB": 1000500.34,
+  "USD": 800.7,
+}
+`;

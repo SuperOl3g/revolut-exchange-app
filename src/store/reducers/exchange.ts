@@ -1,7 +1,7 @@
 import { IAction } from '../../types';
 import { ActionType } from '../../actions/ActionTypes';
 
-const initState = {
+export const initState = {
   sourceCurrency: 'RUB',
   targetCurrency: 'EUR'
 };

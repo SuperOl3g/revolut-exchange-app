@@ -14,11 +14,14 @@ export const Slide = styled.div`
 interface ISliderProps {
   onSlide: (index: number) => void;
   currentSlide: number;
+  speed: number;
 }
 
 class Slider extends PureComponent<ISliderProps> {
   static defaultProps = {
-    onSlide: noop
+    onSlide: noop,
+    currentSlide: 0,
+    speed: 250
   };
 
   private slider?: SlickSlider;
@@ -53,7 +56,7 @@ class Slider extends PureComponent<ISliderProps> {
   };
 
   render() {
-    const { currentSlide, children } = this.props;
+    const { currentSlide, children, speed } = this.props;
 
     return (
       <div ref={this.refScrollBlock}>
@@ -61,7 +64,7 @@ class Slider extends PureComponent<ISliderProps> {
           ref={this.refSlider}
           dots
           arrows
-          speed={250}
+          speed={speed}
           initialSlide={currentSlide}
           infinite={false}
           afterChange={this.handleChange}

@@ -1,6 +1,6 @@
 import React from 'react';
-import ExchangeBlock, { FieldType } from './WidgetBlock/WidgetBlock';
-import { TCurrency, IFieldCallback } from '../../types';
+import ExchangeBlock from './WidgetBlock/WidgetBlock';
+import { TCurrency, IFieldCallback, FieldType } from '../../types';
 import { Content, ErrorString } from './ExchangeWidget.style';
 import { TPockets } from '../../store';
 import formatMoney from '../../utils/formatMoney';
@@ -19,7 +19,6 @@ interface IWidgetProps {
   onCurrencyChange: (type: FieldType, value: TCurrency) => void;
   onAmountChange?: IFieldCallback;
   onExchange: () => void;
-  updateRates: () => void;
 }
 
 class ExchangeWidget extends React.PureComponent<IWidgetProps> {
