@@ -10,10 +10,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 6px;
 `;
 
 const Content = styled.div`
-  max-width: 400px;
+  max-width: 440px;
   width: 100%;
 `;
 

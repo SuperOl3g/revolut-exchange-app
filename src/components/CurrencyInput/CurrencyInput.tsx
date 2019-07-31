@@ -10,7 +10,7 @@ interface IInputProps {
   name: string;
   value?: number;
   onChange: IFieldCallback;
-  autoFocus?: boolean;
+  getRef: React.Ref<HTMLElement>;
 }
 
 class CurrencyInput extends PureComponent<IInputProps> {
@@ -29,17 +29,17 @@ class CurrencyInput extends PureComponent<IInputProps> {
   };
 
   render() {
-    const { prefix, name, value, autoFocus } = this.props;
+    const { prefix, name, value, getRef } = this.props;
 
     return (
       <ClassNames>
         {({ css }) => (
           <NumberFormat
+            getInputRef={getRef}
             className={generateClassName(css)}
             decimalScale={2}
-            autoFocus={autoFocus}
             allowNegative={false}
-            maxLength={20}
+            maxLength={18}
             name={name}
             thousandSeparator={true}
             prefix={prefix}

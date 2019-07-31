@@ -1,24 +1,26 @@
 import styled from '@emotion/styled';
 import colors from '../../../constants/colors';
-import { BlockType } from './Block';
+import { FieldType } from './WidgetBlock';
 
 export const Row = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: flex-end;
 `;
 
-export const ExchangeBlock = styled.div<{ type: BlockType }>(
-  `
-    box-sizing: border-box;
-    padding: 20px 32px 24px;
-    display: flex;
-    flex-wrap: wrap; 
-    font-size: 26px;
-    color: white;
-  `,
+export const ExchangeBlock = styled.div`
+  box-sizing: border-box;
+  padding: 32px 50px 48px;
+  display: flex;
+  flex-wrap: wrap; 
+  font-size: 26px;
+  color: white;
+`;
+
+export const Wrapper = styled.div<{ type: FieldType }>(
   props =>
-    props.type === BlockType.Source
+    props.type === FieldType.Source
       ? `
         background-color: ${colors.blue1};
         position: relative;
@@ -45,4 +47,8 @@ export const SecondaryText = styled.div`
   font-size: 12px;
   color: white;
   opacity: 0.7;
+`;
+
+export const Slide = styled.div`
+  outline: none !important;
 `;

@@ -6,4 +6,5 @@ export const generateClassName = (css: Function) =>
     font-size: inherit;
     text-align: right;
     outline: none;
+    min-width: 50px;
   `;

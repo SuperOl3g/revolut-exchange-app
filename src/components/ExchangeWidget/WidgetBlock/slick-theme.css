@@ -1,0 +1,50 @@
+.slick-dots {
+  bottom: 12px;
+}
+
+.slick-next {
+  right: 12px;
+}
+
+.slick-prev {
+  left: 12px;
+}
+
+.slick-next,
+.slick-prev,
+.slick-dots {
+  z-index: 1;
+}
+
+/* hide arrows for touch-device by the reason of unnecessary */
+@media (pointer: coarse) {
+  .slick-next,
+  .slick-prev {
+    display: none !important;
+  }
+}
+
+.slick-dots li {
+  margin: 0 -2px;
+}
+
+.slick-dots li button:before {
+  font-size: 8px;
+  color: #fff;
+}
+.slick-dots li.slick-active button:before {
+  opacity: 0.75;
+  color: #fff;
+}
+.slide-enter {
+  height: 0px;
+  opacity: 0;
+}
+.slide-enter.slide-enter-active {
+  height: 75px;
+  opacity: 1;
+  transition: height 300ms ease-out, opacity 300ms ease;
+}
+.slide-leave {
+  opacity: 1;
+}

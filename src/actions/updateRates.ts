@@ -14,7 +14,7 @@ export default function updateRates() {
 
     return fetch(`${EXCHANGE_API}/latest?base=${sourceCurrency}`)
       .then(response => response.json())
-      .then(({ rates }) => {
+      .then(({ rates = {} }) => {
         const { RUB, EUR, USD, GBP } = rates;
 
         return { RUB, EUR, USD, GBP };

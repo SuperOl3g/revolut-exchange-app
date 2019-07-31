@@ -7,16 +7,15 @@ import { IAction, IFieldCallback, TCurrency } from '../../types';
 import { ThunkDispatch } from 'redux-thunk';
 import changeCurrency from '../../actions/changeCurrency';
 import path from '../../utils/path';
-import memoize from 'memoize-one';
+import memoize from 'memoizee';
 import exchange from '../../actions/exchange';
+import { FieldType } from './WidgetBlock/WidgetBlock';
 
 const UPDATE_INTERVAL = 10000;
 
-export type FieldType = 'source' | 'target';
+type AmountFieldName = 'sourceAmount' | 'targetAmount';
 
-type FieldName = 'sourceAmount' | 'targetAmount';
-
-const getOppositeFieldName = (name: FieldName): FieldName =>
+const getOppositeFieldName = (name: AmountFieldName): AmountFieldName =>
   name === 'targetAmount' ? 'sourceAmount' : 'targetAmount';
 
 interface IWidgetContainerProps {
@@ -29,7 +28,7 @@ interface IWidgetContainerProps {
   valid?: boolean;
   errorMsg?: string;
 
-  onCurrencyChange: IFieldCallback;
+  onCurrencyChange: (type: FieldType, value: TCurrency) => void;
   onAmountChange?: IFieldCallback;
   onExchange: (
     sourceCurrency: TCurrency,
@@ -43,7 +42,7 @@ interface IWidgetContainerProps {
 interface IWidgetContainerState {
   sourceAmount?: number;
   targetAmount?: number;
-  lastUpdatedField?: FieldName;
+  lastUpdatedField?: AmountFieldName;
 }
 
 class ExchangeWidgetContainer extends Component<
@@ -78,15 +77,15 @@ class ExchangeWidgetContainer extends Component<
     this.setState(
       {
         [name]: value.length ? +value : undefined,
-        lastUpdatedField: name as FieldName
+        lastUpdatedField: name as AmountFieldName
       },
       () => {
-        this.calcAmount(getOppositeFieldName(name as FieldName));
+        this.calcAmount(getOppositeFieldName(name as AmountFieldName));
       }
     );
   };
 
-  calcAmount(fieldName: FieldName) {
+  calcAmount(fieldName: AmountFieldName) {
     const { rate } = this.props;
     const oppositeVal = this.state[getOppositeFieldName(fieldName)];
 
@@ -134,7 +133,8 @@ class ExchangeWidgetContainer extends Component<
       }
 
       return { valid: true };
-    }
+    },
+    { max: 1 }
   );
 
   render() {
@@ -179,10 +179,9 @@ export default connect(
       dispatch(
         exchange(sourceCurrency, sourceAmount, targetCurrency, targetAmount)
       ),
-    onCurrencyChange: ((e, { value, name }) => {
-      const type: FieldType = name === 'sourceCurrency' ? 'source' : 'target';
-      dispatch(changeCurrency(type, value as TCurrency));
-    }) as IFieldCallback,
+    onCurrencyChange: (type: FieldType, value: TCurrency) => {
+      dispatch(changeCurrency(type, value));
+    },
     updateRates: () => dispatch(updateRates())
   })
 )(ExchangeWidgetContainer);
