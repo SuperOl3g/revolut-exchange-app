@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/revolut-exchange-app/static/css/main.1a773630.chunk.css",
+    "main.js": "/revolut-exchange-app/static/js/main.4c07b90c.chunk.js",
+    "main.js.map": "/revolut-exchange-app/static/js/main.4c07b90c.chunk.js.map",
+    "runtime~main.js": "/revolut-exchange-app/static/js/runtime~main.135e4bc4.js",
+    "runtime~main.js.map": "/revolut-exchange-app/static/js/runtime~main.135e4bc4.js.map",
+    "static/css/2.834315fd.chunk.css": "/revolut-exchange-app/static/css/2.834315fd.chunk.css",
+    "static/js/2.e2add837.chunk.js": "/revolut-exchange-app/static/js/2.e2add837.chunk.js",
+    "static/js/2.e2add837.chunk.js.map": "/revolut-exchange-app/static/js/2.e2add837.chunk.js.map",
+    "index.html": "/revolut-exchange-app/index.html",
+    "precache-manifest.ff0995c8d0de649c591d630263e8b93f.js": "/revolut-exchange-app/precache-manifest.ff0995c8d0de649c591d630263e8b93f.js",
+    "service-worker.js": "/revolut-exchange-app/service-worker.js",
+    "static/css/2.834315fd.chunk.css.map": "/revolut-exchange-app/static/css/2.834315fd.chunk.css.map",
+    "static/css/main.1a773630.chunk.css.map": "/revolut-exchange-app/static/css/main.1a773630.chunk.css.map",
+    "static/media/slick-theme.css": "/revolut-exchange-app/static/media/slick.f97e3bbf.svg"
+  }
+}
