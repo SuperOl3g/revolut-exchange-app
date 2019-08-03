@@ -2,17 +2,29 @@ import { ActionType } from './index';
 import { FieldType, TCurrency, TDispatch } from '../types';
 import { IStoreState } from '../store';
 import updateRates from './updateRates';
-import { DEFAULT_CURRENCY_ORDER } from '../constants/common';
+import { DEFAULT_CURRENCY_ORDER as currencyOrder } from '../constants/common';
 
-function getNextCurrency(currency: TCurrency): TCurrency {
-  return DEFAULT_CURRENCY_ORDER[
-    (DEFAULT_CURRENCY_ORDER.indexOf(currency) + 1) %
-      DEFAULT_CURRENCY_ORDER.length
+function getNextCurrency(
+  currency: TCurrency,
+  prevCurrency: TCurrency
+): TCurrency {
+  const curIndex = currencyOrder.indexOf(currency);
+  const prevIndex = currencyOrder.indexOf(prevCurrency);
+  const shift = curIndex > prevIndex ? -1 : 1;
+
+  return currencyOrder[
+    (currencyOrder.length + curIndex + shift) % currencyOrder.length
   ];
 }
 
 export default function changeCurrency(type: FieldType, currency: TCurrency) {
   return (dispatch: TDispatch, getState: () => IStoreState) => {
+    const state = getState();
+    const prevCurrency =
+      state.exchange[
+        type === FieldType.Source ? 'sourceCurrency' : 'targetCurrency'
+      ];
+
     dispatch({
       type:
         type === FieldType.Source
@@ -23,7 +35,6 @@ export default function changeCurrency(type: FieldType, currency: TCurrency) {
 
     dispatch(updateRates());
 
-    const state = getState();
     const oppositeCurrency =
       state.exchange[
         type === FieldType.Source ? 'targetCurrency' : 'sourceCurrency'
@@ -36,7 +47,7 @@ export default function changeCurrency(type: FieldType, currency: TCurrency) {
           type === FieldType.Source
             ? ActionType.TARGET_CURRENCY_CHANGE
             : ActionType.SOURCE_CURRENCY_CHANGE,
-        payload: { currency: getNextCurrency(oppositeCurrency) }
+        payload: { currency: getNextCurrency(oppositeCurrency, prevCurrency) }
       });
     }
   };

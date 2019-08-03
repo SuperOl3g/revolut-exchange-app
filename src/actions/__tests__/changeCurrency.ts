@@ -26,17 +26,36 @@ describe('changeCurrency', () => {
   it('changes opposite field currency if values are the same', async () => {
     const initialState: any = {
       exchange: {
-        targetCurrency: 'RUB'
+        sourceCurrency: 'USD',
+        targetCurrency: 'EUR'
       }
     };
 
     const store = mockStore(initialState);
 
-    await store.dispatch(changeCurrency(FieldType.Source, 'RUB'));
+    await store.dispatch(changeCurrency(FieldType.Source, 'EUR'));
 
     const actions = store.getActions();
 
     expect(actions[2].type).toBe(ActionType.TARGET_CURRENCY_CHANGE);
     expect(actions[2].payload).toStrictEqual({ currency: 'USD' });
+  });
+
+  it('changes opposite field currency if values are the same (2)', async () => {
+    const initialState: any = {
+      exchange: {
+        sourceCurrency: 'GBP',
+        targetCurrency: 'EUR'
+      }
+    };
+
+    const store = mockStore(initialState);
+
+    await store.dispatch(changeCurrency(FieldType.Source, 'EUR'));
+
+    const actions = store.getActions();
+
+    expect(actions[2].type).toBe(ActionType.TARGET_CURRENCY_CHANGE);
+    expect(actions[2].payload).toStrictEqual({ currency: 'GBP' });
   });
 });

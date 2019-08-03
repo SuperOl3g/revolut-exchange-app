@@ -53,7 +53,10 @@ class WigdetBlock extends PureComponent<IBlockProps> {
 
     this.props.onCurrencyChange(type, newCurrency);
 
-    this.focusInput(newCurrency);
+    // if values are equal this mean, that currency was switched automatically because of changing opposite value
+    if (newCurrency !== this.props.currency) {
+      this.focusInput(newCurrency);
+    }
   };
 
   focusInput(currency: TCurrency): void {
