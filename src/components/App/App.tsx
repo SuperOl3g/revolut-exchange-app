@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import ExchangeWidget from '../ExchangeWidget/ExchangeWidgetContainer';
 import { Provider } from 'react-redux';
 import store from '../../store';
+import AlertsStack from '../AlertsStack/AlertsStackContainer';
 
 const Container = styled.div`
   height: 100%;
@@ -23,6 +24,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <Container>
         <Content>
+          <AlertsStack />
           <ExchangeWidget />
         </Content>
       </Container>

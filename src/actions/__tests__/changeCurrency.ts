@@ -1,5 +1,5 @@
 import changeCurrency from '../changeCurrency';
-import { ActionType } from '../ActionTypes';
+import { ActionType } from '../index';
 import { mockStore } from '../../testUtils/';
 import { FieldType } from '../../types';
 

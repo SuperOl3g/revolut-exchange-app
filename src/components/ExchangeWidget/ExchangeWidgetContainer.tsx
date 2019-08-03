@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExchangeWidget from './ExchangeWidget';
-import { IStoreState, TPockets } from '../../store';
+import { IStoreState } from '../../store';
 import updateRates from '../../actions/updateRates';
-import { FieldType, IAction, IFieldCallback, TCurrency } from '../../types';
-import { ThunkDispatch } from 'redux-thunk';
+import { FieldType, IFieldCallback, TCurrency, TDispatch } from '../../types';
 import changeCurrency from '../../actions/changeCurrency';
 import path from '../../utils/path';
 import memoize from 'memoizee';
 import exchange from '../../actions/exchange';
+import { TPockets } from '../../store/reducers/pockets';
 
 const UPDATE_INTERVAL = 10000;
 
@@ -177,7 +177,7 @@ export default connect(
       targetCurrency: exchange.targetCurrency
     };
   },
-  (dispatch: ThunkDispatch<IStoreState, any, IAction>) => ({
+  (dispatch: TDispatch) => ({
     onExchange: (
       sourceCurrency: TCurrency,
       sourceAmount: number,

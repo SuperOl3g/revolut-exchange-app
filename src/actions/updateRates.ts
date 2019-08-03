@@ -1,7 +1,13 @@
 import { Dispatch } from 'redux';
 import { EXCHANGE_API } from '../constants/common';
-import { ActionType } from './ActionTypes';
+import { ActionType } from './index';
 import { IStoreState } from '../store';
+import addAlert from './alerts/addAlert';
+import removeAlert from './alerts/removeAlert';
+
+const ALERT_ID = 'UPDATE_RATES_FAILED';
+
+let errorFlag = false;
 
 export default function updateRates() {
   return (dispatch: Dispatch, getState: () => IStoreState) => {
@@ -19,11 +25,27 @@ export default function updateRates() {
 
         return { RUB, EUR, USD, GBP };
       })
-      .then(rates =>
-        dispatch({
+      .then(rates => {
+        if (errorFlag) {
+          dispatch(removeAlert(ALERT_ID));
+          errorFlag = false;
+        }
+
+        return dispatch({
           type: ActionType.RATES_REQUEST_SUCCESS,
           payload: { rates, baseCurrency: sourceCurrency }
-        })
-      );
+        });
+      })
+      .catch(() => {
+        errorFlag = true;
+
+        dispatch(
+          addAlert({
+            id: ALERT_ID,
+            message: 'Failed to get exchange rates',
+            repeatable: false
+          })
+        );
+      });
   };
 }

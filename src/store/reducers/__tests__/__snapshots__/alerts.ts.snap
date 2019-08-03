@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alerts reducer should add new alert 1`] = `
+Object {
+  "0": Object {
+    "id": "MY_ALERT",
+    "message": "Some text",
+  },
+}
+`;
+
+exports[`Alerts reducer should remove old alert 1`] = `
+Object {
+  "0": Object {
+    "id": "ALERT0",
+    "message": "text0",
+  },
+  "2": Object {
+    "id": "ALERT2",
+    "message": "text2",
+  },
+  "3": Object {
+    "id": "ALERT3",
+    "message": "text3",
+  },
+}
+`;
+
+exports[`Alerts reducer should renew unrepeatable alerts 1`] = `
+Object {
+  "0": Object {
+    "id": "ALERT0",
+    "message": "text0",
+  },
+  "1": Object {
+    "id": "ALERT1",
+    "message": "text1",
+  },
+  "3": Object {
+    "id": "ALERT3",
+    "message": "text3",
+  },
+  "4": Object {
+    "id": "ALERT2",
+    "message": "Some text",
+    "repeatable": false,
+  },
+}
+`;
+
+exports[`Alerts reducer should return the initial state 1`] = `Object {}`;

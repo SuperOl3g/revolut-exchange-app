@@ -1,6 +1,6 @@
-import { ActionType } from './ActionTypes';
-import { FieldType, TCurrency } from '../types';
-import { Dispatch, IStoreState } from '../store';
+import { ActionType } from './index';
+import { FieldType, TCurrency, TDispatch } from '../types';
+import { IStoreState } from '../store';
 import updateRates from './updateRates';
 import { DEFAULT_CURRENCY_ORDER } from '../constants/common';
 
@@ -12,7 +12,7 @@ function getNextCurrency(currency: TCurrency): TCurrency {
 }
 
 export default function changeCurrency(type: FieldType, currency: TCurrency) {
-  return (dispatch: Dispatch, getState: () => IStoreState) => {
+  return (dispatch: TDispatch, getState: () => IStoreState) => {
     dispatch({
       type:
         type === FieldType.Source

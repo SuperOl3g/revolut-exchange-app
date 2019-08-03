@@ -1,4 +1,6 @@
-function path(obj: any, paths: Array<string | number>): any {
+import { TAnyObject } from '../types';
+
+function path(obj: TAnyObject, paths: Array<string | number>): any {
   let val = obj;
   let idx = 0;
 

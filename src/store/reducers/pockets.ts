@@ -1,6 +1,9 @@
 import { IAction, TCurrency } from '../../types';
-import { TPockets } from '../index';
-import { ActionType } from '../../actions/ActionTypes';
+import { ActionType } from '../../actions';
+
+export type TPockets = {
+  [key in TCurrency]: number;
+};
 
 export const initState: TPockets = {
   RUB: 1000500.34,
@@ -9,9 +12,9 @@ export const initState: TPockets = {
   GBP: 70.5
 };
 
-function pockets(state: TPockets = initState, action: IAction) {
+function pockets(state: TPockets = initState, action: IAction): TPockets {
   switch (action.type) {
-    case ActionType.EXCHANGE: {
+    case ActionType.POCKETS_EXCHANGE: {
       const {
         sourceCurrency,
         sourceAmount,

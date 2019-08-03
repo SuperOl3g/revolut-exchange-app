@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock';
-import { ActionType } from '../ActionTypes';
+import { ActionType } from '../index';
 import { EXCHANGE_API } from '../../constants/common';
 import { mockStore } from '../../testUtils/';
 import updateRates from '../updateRates';
@@ -68,5 +68,25 @@ describe('updateRates', () => {
       rates,
       baseCurrency: 'RUB'
     });
+  });
+
+  it('should trigger alert on error', async () => {
+    const initialState: any = {
+      exchange: {
+        sourceCurrency: 'RUB'
+      }
+    };
+
+    const store = mockStore(initialState);
+
+    fetchMock.getOnce(`${EXCHANGE_API}/latest?base=RUB`, {
+      throws: new Error()
+    });
+
+    await store.dispatch(updateRates());
+
+    const actions = store.getActions();
+
+    expect(actions[1].type).toBe(ActionType.ALERT_ADD);
   });
 });

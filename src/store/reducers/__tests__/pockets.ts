@@ -1,5 +1,5 @@
 import reducer, { initState } from '../pockets';
-import { ActionType } from '../../../actions/ActionTypes';
+import { ActionType } from '../../../actions';
 import { IAction } from '../../../types';
 
 describe('Pockets reducer', () => {
@@ -10,7 +10,7 @@ describe('Pockets reducer', () => {
   it('should handle EXCHANGE', () => {
     expect(
       reducer(initState, {
-        type: ActionType.EXCHANGE,
+        type: ActionType.POCKETS_EXCHANGE,
         payload: {
           sourceCurrency: 'USD',
           sourceAmount: 200,

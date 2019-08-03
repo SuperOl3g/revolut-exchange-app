@@ -2,9 +2,9 @@ import React from 'react';
 import ExchangeBlock from './WidgetBlock/WidgetBlock';
 import { TCurrency, IFieldCallback, FieldType } from '../../types';
 import { Content, ErrorString } from './ExchangeWidget.style';
-import { TPockets } from '../../store';
 import formatMoney from '../../utils/formatMoney';
 import ExchnageButton from './SubmitButton/SubmitButton';
+import { TPockets } from '../../store/reducers/pockets';
 
 interface IWidgetProps {
   pockets: TPockets;

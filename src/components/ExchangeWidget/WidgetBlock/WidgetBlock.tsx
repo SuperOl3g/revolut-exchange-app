@@ -8,12 +8,12 @@ import {
   SecondaryText,
   Wrapper
 } from './WidgetBlock.style';
-import { TPockets } from '../../../store';
 import Slider from '../../Slider/Slider';
 import memoize from 'memoizee';
 
 import { DEFAULT_CURRENCY_ORDER } from '../../../constants/common';
 import noop from '../../../utils/noop';
+import { TPockets } from '../../../store/reducers/pockets';
 
 interface IBlockProps {
   type: FieldType;

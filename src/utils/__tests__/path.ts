@@ -1,4 +1,4 @@
-import path from './path';
+import path from '../path';
 
 describe('path', () => {
   it('should return object by path', () => {

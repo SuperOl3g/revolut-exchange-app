@@ -1,5 +1,5 @@
 import reducer, { initState } from '../exchange';
-import { ActionType } from '../../../actions/ActionTypes';
+import { ActionType } from '../../../actions';
 import { IAction } from '../../../types';
 
 describe('Exchange reducer', () => {
