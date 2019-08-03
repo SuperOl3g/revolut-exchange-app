@@ -1,18 +1,16 @@
 import { Dispatch } from 'redux';
 import { EXCHANGE_API } from '../constants/common';
 import { ActionType } from './index';
-import { IStoreState } from '../store';
 import addAlert from './alerts/addAlert';
 import removeAlert from './alerts/removeAlert';
+import { TCurrency } from '../types';
 
 const ALERT_ID = 'UPDATE_RATES_FAILED';
 
 let errorFlag = false;
 
-export default function updateRates() {
-  return (dispatch: Dispatch, getState: () => IStoreState) => {
-    const { sourceCurrency } = getState().exchange;
-
+export default function updateRates(sourceCurrency: TCurrency) {
+  return (dispatch: Dispatch) => {
     dispatch({
       type: ActionType.RATES_REQUEST,
       payload: { baseCurrency: sourceCurrency }

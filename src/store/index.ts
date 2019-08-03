@@ -4,14 +4,12 @@ import rootReducer from './reducers';
 import { TPockets } from './reducers/pockets';
 import { TRates } from './reducers/rates';
 import { TAlerts } from './reducers/alerts';
-import { TExchange } from './reducers/exchange';
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export interface IStoreState {
   pockets: TPockets;
-  exchange: TExchange;
   rates: TRates;
   alerts: TAlerts;
 }

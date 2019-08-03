@@ -10,11 +10,6 @@ describe('updateRates', () => {
   });
 
   it('should dispatch all actions with correct data', async () => {
-    const initialState: any = {
-      exchange: {
-        sourceCurrency: 'RUB'
-      }
-    };
     const rates = {
       RUB: 1,
       EUR: 0.0141689219,
@@ -22,13 +17,13 @@ describe('updateRates', () => {
       GBP: 0.0129149723
     };
 
-    const store = mockStore(initialState);
+    const store = mockStore();
 
     fetchMock.getOnce(`${EXCHANGE_API}/latest?base=RUB`, {
       body: { rates }
     });
 
-    await store.dispatch(updateRates());
+    await store.dispatch(updateRates('RUB'));
 
     const actions = store.getActions();
 
@@ -40,11 +35,6 @@ describe('updateRates', () => {
   });
 
   it('should pick only necessary props', async () => {
-    const initialState: any = {
-      exchange: {
-        sourceCurrency: 'RUB'
-      }
-    };
     const rates = {
       RUB: 1,
       EUR: 0.0141689219,
@@ -53,13 +43,13 @@ describe('updateRates', () => {
       CAD: 100500
     };
 
-    const store = mockStore(initialState);
+    const store = mockStore();
 
     fetchMock.getOnce(`${EXCHANGE_API}/latest?base=RUB`, {
       body: { rates }
     });
 
-    await store.dispatch(updateRates());
+    await store.dispatch(updateRates('RUB'));
 
     const actions = store.getActions();
 
@@ -71,22 +61,17 @@ describe('updateRates', () => {
   });
 
   it('should trigger alert on error', async () => {
-    const initialState: any = {
-      exchange: {
-        sourceCurrency: 'RUB'
-      }
-    };
-
-    const store = mockStore(initialState);
+    const store = mockStore();
 
     fetchMock.getOnce(`${EXCHANGE_API}/latest?base=RUB`, {
       throws: new Error()
     });
 
-    await store.dispatch(updateRates());
+    await store.dispatch(updateRates('RUB'));
 
     const actions = store.getActions();
 
-    expect(actions[1].type).toBe(ActionType.ALERT_ADD);
+    expect(actions[1].type).toBe(ActionType.RATES_REQUEST_FAILURE);
+    expect(actions[2].type).toBe(ActionType.ALERT_ADD);
   });
 });

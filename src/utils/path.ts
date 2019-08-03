@@ -1,8 +1,12 @@
 import { TAnyObject } from '../types';
 
-function path(obj: TAnyObject, paths: Array<string | number>): any {
+function path(obj: TAnyObject | undefined, paths: Array<string | number>): any {
   let val = obj;
   let idx = 0;
+
+  if (!obj) {
+    return;
+  }
 
   while (idx < paths.length) {
     if (val == null) {

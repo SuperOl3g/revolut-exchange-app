@@ -5,10 +5,12 @@ import { Content, ErrorString } from './ExchangeWidget.style';
 import formatMoney from '../../utils/formatMoney';
 import ExchnageButton from './SubmitButton/SubmitButton';
 import { TPockets } from '../../store/reducers/pockets';
+import path from '../../utils/path';
+import { TRates } from '../../store/reducers/rates';
 
 interface IWidgetProps {
   pockets: TPockets;
-  rate?: number;
+  rates?: TRates;
   sourceCurrency: TCurrency;
   targetCurrency: TCurrency;
   sourceAmount?: number | null;
@@ -18,7 +20,7 @@ interface IWidgetProps {
 
   onCurrencyChange: (type: FieldType, value: TCurrency) => void;
   onAmountChange?: IFieldCallback;
-  onExchange: () => void;
+  onSubmit: () => void;
 }
 
 class ExchangeWidget extends React.PureComponent<IWidgetProps> {
@@ -29,13 +31,15 @@ class ExchangeWidget extends React.PureComponent<IWidgetProps> {
       targetCurrency,
       sourceAmount,
       targetAmount,
-      rate,
+      rates,
       onCurrencyChange,
       onAmountChange,
-      onExchange,
+      onSubmit,
       valid,
       errorMsg
     } = this.props;
+
+    const rate = path(rates, [sourceCurrency, targetCurrency]);
 
     return (
       <div>
@@ -67,7 +71,7 @@ class ExchangeWidget extends React.PureComponent<IWidgetProps> {
           />
         </Content>
 
-        <ExchnageButton disabled={!valid} onClick={onExchange}>
+        <ExchnageButton disabled={!valid} onClick={onSubmit}>
           Exchange
         </ExchnageButton>
         <ErrorString>{errorMsg}</ErrorString>
