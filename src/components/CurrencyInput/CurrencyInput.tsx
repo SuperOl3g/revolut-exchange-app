@@ -43,6 +43,7 @@ class CurrencyInput extends PureComponent<IInputProps> {
             allowNegative={false}
             maxLength={14}
             name={name}
+            autoComplete={'off'}
             thousandSeparator={true}
             prefix={prefix}
             value={value || ''}
