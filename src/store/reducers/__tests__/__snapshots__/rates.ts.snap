@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Rates reducer should handle RATES_REQUEST_SUCCESS 1`] = `
+exports[`Rates reducer should clear state on error 1`] = `
+Object {
+  "RUB": Object {},
+}
+`;
+
+exports[`Rates reducer should return the initial state 1`] = `Object {}`;
+
+exports[`Rates reducer should update rates 1`] = `
 Object {
   "RUB": Object {
     "EUR": 0.0141689219,
@@ -10,5 +18,3 @@ Object {
   },
 }
 `;
-
-exports[`Rates reducer should return the initial state 1`] = `Object {}`;

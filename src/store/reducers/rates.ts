@@ -19,6 +19,14 @@ function rates(state: TRates = initState, action: IAction): TRates {
         [baseCurrency]: rates
       };
     }
+
+    case ActionType.RATES_REQUEST_FAILURE: {
+      return {
+        ...state,
+        [action.payload.baseCurrency]: {}
+      };
+    }
+
     default:
       return state;
   }

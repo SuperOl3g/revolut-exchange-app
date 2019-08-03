@@ -23,8 +23,9 @@ class CurrencyInput extends PureComponent<IInputProps> {
     const { name, prefix } = this.props;
 
     const newVal = prefix === '-' ? value.slice(prefix.length) : value;
+    const intPropsValue = this.props.value ? +this.props.value : 0;
 
-    if (+newVal !== this.props.value) {
+    if (+newVal !== intPropsValue) {
       this.props.onChange(null, { value: newVal, name });
     }
   };

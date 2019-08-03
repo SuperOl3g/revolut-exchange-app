@@ -39,6 +39,11 @@ export default function updateRates() {
       .catch(() => {
         errorFlag = true;
 
+        dispatch({
+          type: ActionType.RATES_REQUEST_FAILURE,
+          payload: { baseCurrency: sourceCurrency }
+        });
+
         dispatch(
           addAlert({
             id: ALERT_ID,
