@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2c63f6541a6bdaff940d8facb1844dbb",
+    "revision": "263a06f03c5c3091671a8b7df74b5046",
     "url": "/revolut-exchange-app/index.html"
   },
   {
-    "revision": "f949377c74346b6c6d28",
-    "url": "/revolut-exchange-app/static/css/2.834315fd.chunk.css"
+    "revision": "52afb5f192a23b922072",
+    "url": "/revolut-exchange-app/static/css/2.e41b338e.chunk.css"
   },
   {
-    "revision": "ab2317f5da4379fb9901",
+    "revision": "2cfed3685239cadb2be8",
     "url": "/revolut-exchange-app/static/css/main.1a773630.chunk.css"
   },
   {
-    "revision": "f949377c74346b6c6d28",
-    "url": "/revolut-exchange-app/static/js/2.e2add837.chunk.js"
+    "revision": "52afb5f192a23b922072",
+    "url": "/revolut-exchange-app/static/js/2.bf59ed09.chunk.js"
   },
   {
-    "revision": "ab2317f5da4379fb9901",
-    "url": "/revolut-exchange-app/static/js/main.4c07b90c.chunk.js"
+    "revision": "2cfed3685239cadb2be8",
+    "url": "/revolut-exchange-app/static/js/main.d69a3aeb.chunk.js"
   },
   {
     "revision": "e056776f697a20fd0981",
