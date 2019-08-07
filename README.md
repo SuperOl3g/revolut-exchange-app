@@ -1,6 +1,6 @@
-## revolut-exchange-map
+## revolut-exchange-app
 
-**Demo**: <link>
+**Demo**: https://superol3g.github.io/revolut-exchange-app/
 
 ### Scripts
 
@@ -13,7 +13,7 @@
 - [Redux](https://github.com/reduxjs/redux)
 - [Emotion](https://github.com/emotion-js/emotion)
 - [Prettier](https://github.com/prettier/prettier) + [Husky](https://github.com/typicode/husky)  
-- [Jest](https://github.com/facebook/jest)
+- [Jest](https://github.com/facebook/jest) + [Enzyme](https://github.com/airbnb/enzyme)
 - based on [create-react-app](https://github.com/facebook/create-react-app).
 
 Thanks for an opportunity to practice! 👍
